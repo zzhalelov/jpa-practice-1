@@ -36,10 +36,11 @@ public class ProductDao {
 
     //4. Найти товар по названию
     public Product findByName(String name) {
-        TypedQuery<Product> query = manager.createQuery("select p from Product p where name = ?1", Product.class);
-        query.setParameter(1, "name");
-        Product product = query.getSingleResult();
-        return product;
+        Query query = manager.createQuery("SELECT p FROM Product p WHERE p.name = :name");
+        query.setParameter("name", name);
+
+        List<Product> users = query.getResultList();
+        return users.isEmpty() ? null : users.get(0);
     }
 
     //5. Удалить товар по id
@@ -82,15 +83,27 @@ public class ProductDao {
     public Product updateByName(Product product) {
         try {
             manager.getTransaction().begin();
-            manager.find(Product.class, product.getName());
-            product.setPrice(product.getPrice() + 30);
-            manager.merge(product);
-            manager.getTransaction().commit();
-            System.out.println("Сведения о товаре обновлены");
+
+            Query query = manager.createQuery("SELECT p FROM Product p WHERE p.name = :name");
+            query.setParameter("name", product.getName());
+
+            List<Product> products = query.getResultList();
+
+            if (!products.isEmpty()) {
+                Product currentProduct = products.get(0);
+                currentProduct.setPrice(product.getPrice() + 100);
+                manager.merge(currentProduct);
+                manager.getTransaction().commit();
+                System.out.println("Сведения о товаре обновлены");
+                return currentProduct;
+            } else {
+                System.out.println("Товар с наименованием " + product.getName() + " не найден.");
+                manager.getTransaction().rollback();
+            }
         } catch (Exception e) {
             manager.getTransaction().rollback();
-            System.out.println(e.getMessage());
+            System.out.println("Ошибка при обновлении сведений о товаре: " + e.getMessage());
         }
-        return product;
+        return null;
     }
 }

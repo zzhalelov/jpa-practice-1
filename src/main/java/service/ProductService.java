@@ -74,9 +74,9 @@ public class ProductService {
     }
 
     //7. Обновить стоимость товара по названий
-    public void updatePriceByName(){
+    public void updatePriceByName() {
         System.out.println("Введите наименование товара:");
         String name = scanner.nextLine();
-
+        productDao.updateByName(productDao.findByName(name));
     }
 }
