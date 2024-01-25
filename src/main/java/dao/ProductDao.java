@@ -106,4 +106,32 @@ public class ProductDao {
         }
         return null;
     }
+
+    //8. Подсчитать общую стоимость всех товаров
+    public long totalSum() {
+        TypedQuery<Long> query = manager.createQuery("SELECT sum(p.price) FROM Product p", Long.class);
+        Long sum = query.getSingleResult();
+
+        if (sum != null) {
+            System.out.println("Общая стоимость всех товаров: " + sum);
+            return sum;
+        } else {
+            System.out.println("Ошибка");
+            return 0L;
+        }
+    }
+
+    //9. Вывести общее количество товаров
+    public long count() {
+        TypedQuery<Long> query = manager.createQuery("SELECT count(*) FROM Product p", Long.class);
+        Long count = query.getSingleResult();
+
+        if (count != null) {
+            System.out.println("Общее количество всех товаров: " + count);
+            return count;
+        } else {
+            System.out.println("ERROR");
+            return 0;
+        }
+    }
 }

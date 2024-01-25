@@ -22,6 +22,8 @@ public class Test {
                 case 5 -> service.deleteProductById();
                 case 6 -> service.updateProductById();
                 case 7 -> service.updatePriceByName();
+                case 8 -> service.totalSum();
+                case 9 -> service.countAll();
             }
         }
     }
@@ -35,6 +37,8 @@ public class Test {
         System.out.println("5. Удалить товар по id");
         System.out.println("6. Обновить стоимость товара по id");
         System.out.println("7. Обновить стоимость товара по названий");
+        System.out.println("8. Подсчитать общую стоимость всех товаров");
+        System.out.println("9. Вывести общее количество товаров");
         System.out.println("*** Для выхода введите цифру 0");
         System.out.println("-----------------------------------------------");
     }

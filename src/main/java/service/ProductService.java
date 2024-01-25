@@ -79,4 +79,14 @@ public class ProductService {
         String name = scanner.nextLine();
         productDao.updateByName(productDao.findByName(name));
     }
+
+    //8. Подсчитать общую стоимость всех товаров
+    public void totalSum() {
+        Long sum = productDao.totalSum();
+    }
+
+    //9. Вывести общее количество товаров
+    public void countAll() {
+        Long count = productDao.count();
+    }
 }
