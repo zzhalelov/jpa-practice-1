@@ -134,4 +134,11 @@ public class ProductDao {
             return 0;
         }
     }
+
+    //10. Найти самый дорогой товар
+    public List<Product> findMax() {
+        List<Product> products = manager.createQuery("SELECT p FROM Product p WHERE p.price = (SELECT max(p.price) FROM Product p)", Product.class).getResultList();
+        System.out.println(products);
+        return products;
+    }
 }

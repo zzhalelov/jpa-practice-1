@@ -89,4 +89,9 @@ public class ProductService {
     public void countAll() {
         Long count = productDao.count();
     }
+
+    //10. Найти самый дорогой товар
+    public void findMax() {
+        productDao.findMax();
+    }
 }
