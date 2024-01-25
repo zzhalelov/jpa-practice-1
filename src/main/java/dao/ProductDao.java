@@ -152,4 +152,21 @@ public class ProductDao {
         System.out.println(products);
         return products;
     }
+
+    //12. Предоставить скидку на товар по его id (в процентах)
+    public Product discountById(Product product, int discount) {
+        try {
+            manager.getTransaction().begin();
+            Product currentPrice = manager.find(Product.class, product.getId());
+            double priceWithDiscount = currentPrice.getPrice() * (1 - ((double) discount / 100));
+            currentPrice.setPrice((int) priceWithDiscount);
+            manager.merge(currentPrice);
+            manager.getTransaction().commit();
+            System.out.println("Товару предоставлена скидка, % " + discount);
+        } catch (Exception e) {
+            manager.getTransaction().rollback();
+            System.out.println(e.getMessage());
+        }
+        return product;
+    }
 }

@@ -37,7 +37,7 @@ public class ProductService {
 
     //3. Найти товар по id
     public void findById() {
-        System.out.println("Введите id пользователя:");
+        System.out.println("Введите id товара:");
         int id = Integer.parseInt(scanner.nextLine());
         Product product = productDao.findByid(id);
         if (product == null) {
@@ -100,5 +100,14 @@ public class ProductService {
         System.out.println("Введите число для вывода Топ N товаров:");
         int num = Integer.parseInt(scanner.nextLine());
         productDao.printTop(num);
+    }
+
+    //12. Предоставить скидку на товар по его id (в процентах)
+    public void discountById() {
+        System.out.println("Введите Id товара");
+        int id = Integer.parseInt(scanner.nextLine());
+        System.out.println("Сколько процентов скидки на товар вы хотите предоставить:");
+        int discount = Integer.parseInt(scanner.nextLine());
+        productDao.discountById(productDao.findByid(id), discount);
     }
 }
