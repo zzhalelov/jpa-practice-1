@@ -94,4 +94,11 @@ public class ProductService {
     public void findMax() {
         productDao.findMax();
     }
+
+    //11. Показать топ N товаров с самой высокой стоимостью
+    public void printTop() {
+        System.out.println("Введите число для вывода Топ N товаров:");
+        int num = Integer.parseInt(scanner.nextLine());
+        productDao.printTop(num);
+    }
 }

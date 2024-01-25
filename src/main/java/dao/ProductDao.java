@@ -141,4 +141,15 @@ public class ProductDao {
         System.out.println(products);
         return products;
     }
+
+    //11. Показать топ N товаров с самой высокой стоимостью
+    public List<Product> printTop(int num) {
+        TypedQuery<Product> query = manager.createQuery("SELECT p FROM Product p ORDER BY price DESC ", Product.class);
+        query.setMaxResults(num);
+
+        List<Product> products = query.getResultList();
+
+        System.out.println(products);
+        return products;
+    }
 }

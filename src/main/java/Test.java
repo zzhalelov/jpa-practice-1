@@ -25,6 +25,7 @@ public class Test {
                 case 8 -> service.totalSum();
                 case 9 -> service.countAll();
                 case 10 -> service.findMax();
+                case 11 -> service.printTop();
             }
         }
     }
@@ -41,6 +42,7 @@ public class Test {
         System.out.println("8. Подсчитать общую стоимость всех товаров");
         System.out.println("9. Вывести общее количество товаров");
         System.out.println("10. Найти самый дорогой товар");
+        System.out.println("11. Показать топ 3 товаров с самой высокой стоимостью");
         System.out.println("*** Для выхода введите цифру 0");
         System.out.println("-----------------------------------------------");
     }
