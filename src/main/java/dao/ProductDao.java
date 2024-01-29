@@ -180,7 +180,10 @@ public class ProductDao {
     }
 
     public List<Product> findByCategoryName(String name) {
+        Query query = (Query) manager.createQuery("SELECT p FROM Product p, Category c WHERE c.name = :name").getResultList();
+        query.setParameter("name", name);
+
+        List<Product> products = query.getResultList();
         return null;
     }
-
 }
