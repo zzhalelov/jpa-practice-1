@@ -169,4 +169,15 @@ public class ProductDao {
         }
         return product;
     }
+
+    //13. Найти список товаров определенной категорий (по названий/id)
+    public List<Product> findByCategoryId(int categoryId) {
+        Query query = manager.createQuery("SELECT p FROM Product p, Category c WHERE c.id = :id");
+        query.setParameter("id", categoryId);
+
+        List<Product> products = query.getResultList();
+        return products;
+    }
+
+
 }

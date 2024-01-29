@@ -4,6 +4,7 @@ import dao.ProductDao;
 import lombok.Getter;
 import model.Product;
 
+import java.util.List;
 import java.util.Scanner;
 
 @Getter
@@ -109,5 +110,13 @@ public class ProductService {
         System.out.println("Сколько процентов скидки на товар вы хотите предоставить:");
         int discount = Integer.parseInt(scanner.nextLine());
         productDao.discountById(productDao.findByid(id), discount);
+    }
+
+    //13. Найти список товаров определенной категорий (по названий/id)
+    public void findByCategoryId() {
+        System.out.println("Введите ID товара:");
+        int categoryId = Integer.parseInt(scanner.nextLine());
+        List<Product> products = productDao.findByCategoryId(categoryId);
+        System.out.println(products);
     }
 }
