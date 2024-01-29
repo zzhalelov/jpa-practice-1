@@ -180,7 +180,6 @@ public class ProductDao {
     }
 
     public List<Product> findByCategoryName(String name) {
-
         return null;
     }
 
