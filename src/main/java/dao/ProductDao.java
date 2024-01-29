@@ -179,5 +179,9 @@ public class ProductDao {
         return products;
     }
 
+    public List<Product> findByCategoryName(String name) {
+
+        return null;
+    }
 
 }
