@@ -120,10 +120,10 @@ public class ProductService {
         System.out.println(products);
     }
 
-    public void findByCategoryName(){
-        System.out.println("Введите название товара:");
-        String name = scanner.nextLine();
-        List<Product> products = productDao.findByCategoryName(name);
-        System.out.println(products);
-    }
+//    public void findByCategoryName() {
+//        System.out.println("Введите название товара:");
+//        String name = scanner.nextLine();
+//        List<Product> products = productDao.findByCategoryName(name);
+//        System.out.println(products);
+//    }
 }

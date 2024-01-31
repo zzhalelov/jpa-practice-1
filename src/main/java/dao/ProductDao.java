@@ -1,5 +1,6 @@
 package dao;
 
+import model.Category;
 import model.Product;
 
 import javax.persistence.*;
@@ -172,18 +173,18 @@ public class ProductDao {
 
     //13. Найти список товаров определенной категорий (по названий/id)
     public List<Product> findByCategoryId(int categoryId) {
-        Query query = manager.createQuery("SELECT p FROM Product p, Category c WHERE c.id = :id");
-        query.setParameter("id", categoryId);
+        Query query = manager.createQuery("SELECT p FROM Product p WHERE p.category.id=:categoryId", Product.class);
+        query.setParameter("categoryId", categoryId);
 
         List<Product> products = query.getResultList();
         return products;
     }
 
-    public List<Product> findByCategoryName(String name) {
-        Query query = (Query) manager.createQuery("SELECT p FROM Product p, Category c WHERE c.name = :name").getResultList();
-        query.setParameter("name", name);
-
-        List<Product> products = query.getResultList();
-        return null;
-    }
+//    public List<Product> findByCategoryName(String name) {
+//        Query query = (Query) manager.createQuery("SELECT p FROM Product p, Category c WHERE c.name = :name").getResultList();
+//        query.setParameter("name", name);
+//
+//        List<Product> products = query.getResultList();
+//        return null;
+//    }
 }

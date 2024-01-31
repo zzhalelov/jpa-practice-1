@@ -26,7 +26,7 @@ public class Test {
                 case 10 -> service.findMax();
                 case 11 -> service.printTop();
                 case 12 -> service.discountById();
-                case 13 -> service.findByCategoryName();
+                case 13 -> service.findByCategoryId();
             }
         }
     }

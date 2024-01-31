@@ -17,8 +17,4 @@ public class Category {
     @GeneratedValue
     private int id;
     private String name;
-
-    @Column(name = "category_id")
-    private int categoryId;
-
 }
