@@ -4,7 +4,9 @@ import model.Category;
 import model.Product;
 
 import javax.persistence.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ProductDao {
     static EntityManagerFactory factory = Persistence.createEntityManagerFactory("default");
@@ -187,5 +189,20 @@ public class ProductDao {
 
         List<Product> products = query.getResultList();
         return products;
+    }
+
+    //15. Найти количество товаров в каждой категорий
+    public Map<String, Long> countByCategory() {
+        TypedQuery<Object[]> query = manager.createQuery("SELECT c.name, count(p) FROM Product p JOIN p.category c GROUP BY c.name", Object[].class);
+
+        List<Object[]> resultList = query.getResultList();
+        Map<String, Long> countByCategory = new HashMap<>();
+
+        for (Object[] result : resultList) {
+            String categoryName = (String) result[0];
+            Long count = (Long) result[1];
+            countByCategory.put(categoryName, count);
+        }
+        return countByCategory;
     }
 }

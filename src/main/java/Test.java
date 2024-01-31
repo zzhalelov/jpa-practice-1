@@ -28,6 +28,7 @@ public class Test {
                 case 12 -> service.discountById();
                 case 13 -> service.findByCategoryId();
                 case 14 -> service.findByCategoryName();
+                case 15 -> service.countByCategory();
             }
         }
     }
@@ -48,6 +49,7 @@ public class Test {
         System.out.println("12. Предоставить скидку на товар по его id (в процентах)");
         System.out.println("13. Найти список товаров определенной категорий (по id)");
         System.out.println("14. Найти список товаров определенной категорий (по названию)");
+        System.out.println("15. Найти количество товаров в каждой категорий");
         System.out.println("*** Для выхода введите цифру 0");
         System.out.println("-----------------------------------------------");
     }

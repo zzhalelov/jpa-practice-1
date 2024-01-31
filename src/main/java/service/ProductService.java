@@ -5,6 +5,7 @@ import lombok.Getter;
 import model.Product;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 @Getter
@@ -126,5 +127,13 @@ public class ProductService {
         String name = scanner.nextLine();
         List<Product> products = productDao.findByCategoryName(name);
         System.out.println(products);
+    }
+
+    //15. Найти количество товаров в каждой категорий
+    public void countByCategory() {
+        Map<String, Long> countByCategory = productDao.countByCategory();
+        for (Map.Entry<String, Long> entry : countByCategory.entrySet()) {
+            System.out.println("По категории " + entry.getKey() + " количество товаров " + entry.getValue());
+        }
     }
 }
