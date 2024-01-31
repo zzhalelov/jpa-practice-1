@@ -112,7 +112,7 @@ public class ProductService {
         productDao.discountById(productDao.findByid(id), discount);
     }
 
-    //13. Найти список товаров определенной категорий (по названий/id)
+    //13. Найти список товаров определенной категорий (по id)
     public void findByCategoryId() {
         System.out.println("Введите ID товара:");
         int categoryId = Integer.parseInt(scanner.nextLine());
@@ -120,10 +120,11 @@ public class ProductService {
         System.out.println(products);
     }
 
-//    public void findByCategoryName() {
-//        System.out.println("Введите название товара:");
-//        String name = scanner.nextLine();
-//        List<Product> products = productDao.findByCategoryName(name);
-//        System.out.println(products);
-//    }
+    //14. Найти список товаров определенной категорий (по названию)
+    public void findByCategoryName() {
+        System.out.println("Введите название товара:");
+        String name = scanner.nextLine();
+        List<Product> products = productDao.findByCategoryName(name);
+        System.out.println(products);
+    }
 }

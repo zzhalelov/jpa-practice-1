@@ -27,6 +27,7 @@ public class Test {
                 case 11 -> service.printTop();
                 case 12 -> service.discountById();
                 case 13 -> service.findByCategoryId();
+                case 14 -> service.findByCategoryName();
             }
         }
     }
@@ -45,7 +46,8 @@ public class Test {
         System.out.println("10. Найти самый дорогой товар");
         System.out.println("11. Показать топ N товаров с самой высокой стоимостью");
         System.out.println("12. Предоставить скидку на товар по его id (в процентах)");
-        System.out.println("13. Найти список товаров определенной категорий (по названий/id)");
+        System.out.println("13. Найти список товаров определенной категорий (по id)");
+        System.out.println("14. Найти список товаров определенной категорий (по названию)");
         System.out.println("*** Для выхода введите цифру 0");
         System.out.println("-----------------------------------------------");
     }
