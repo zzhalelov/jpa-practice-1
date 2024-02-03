@@ -18,24 +18,24 @@ public class ProductService {
     }
 
     //1. Создать товар
-    public void create() {
-        System.out.println("Введите наименование продукта:");
-        String name = scanner.nextLine();
-
-        System.out.println("Введите цену товара:");
-        int price = Integer.parseInt(scanner.nextLine());
-
-        System.out.println("Введите к какой категории относится товар");
-        int categoryId = Integer.parseInt(scanner.nextLine());
-
-        Product product = new Product();
-        product.setName(name);
-        product.setPrice(price);
-
-        ProductDao dao = new ProductDao();
-        dao.create(product);
-        System.out.println("Товар добавлен");
-    }
+//    public void create() {
+//        System.out.println("Введите наименование продукта:");
+//        String name = scanner.nextLine();
+//
+//        System.out.println("Введите цену товара:");
+//        int price = Integer.parseInt(scanner.nextLine());
+//
+//        System.out.println("Введите к какой категории относится товар");
+//        int categoryId = Integer.parseInt(scanner.nextLine());
+//
+//        Product product = new Product();
+//        product.setName(name);
+//        product.setPrice(price);
+//
+//        ProductDao dao = new ProductDao();
+//        dao.create(product);
+//        System.out.println("Товар добавлен");
+//    }
 
     //2. Вывести все товары
     public void printAll() {

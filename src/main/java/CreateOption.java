@@ -41,7 +41,7 @@ public class CreateOption {
             System.out.println("Характеристика создана");
         } catch (Exception e) {
             manager.getTransaction().rollback();
-            System.out.println("Ошибка при создании категории");
+            System.out.println("Ошибка при создании характеристики");
         }
     }
 
