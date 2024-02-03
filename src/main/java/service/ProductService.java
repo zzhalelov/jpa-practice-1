@@ -26,9 +26,13 @@ public class ProductService {
         System.out.println("Введите цену товара:");
         int price = Integer.parseInt(scanner.nextLine());
 
+        System.out.println("Введите к какой категории относится товар");
+        int categoryId = Integer.parseInt(scanner.nextLine());
+
         Product product = new Product();
         product.setName(name);
         product.setPrice(price);
+
         productDao.create(product);
     }
 

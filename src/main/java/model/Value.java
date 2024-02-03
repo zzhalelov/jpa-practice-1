@@ -3,7 +3,6 @@ package model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Getter
@@ -12,16 +11,18 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "categories")
-public class Category {
+@Table(name = "values")
+public class Value {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
 
-    @OneToMany(mappedBy = "category")
-    private List<Product> products;
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 
-    @OneToMany(mappedBy = "category")
-    private List<Option> options;
+    @ManyToOne
+    @JoinColumn(name = "option_id")
+    private Option option;
 }

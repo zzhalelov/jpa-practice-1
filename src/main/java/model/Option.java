@@ -1,28 +1,28 @@
 package model;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
+@Entity
 @Getter
 @Setter
-@Entity
-@Table(name = "products")
 @ToString
-public class Product {
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Table(name = "options")
+public class Option {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    private int price;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "option")
     private List<Value> values;
 }
