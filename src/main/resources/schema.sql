@@ -23,3 +23,9 @@ CREATE TABLE values
     product_id INT REFERENCES products (id),
     option_id  INT REFERENCES options (id)
 );
+
+SELECT *
+FROM categories,
+     options
+WHERE options.category_id = categories.id
+  AND options.category_id = 1;

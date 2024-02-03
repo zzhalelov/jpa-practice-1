@@ -6,9 +6,12 @@ import model.Value;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import static dao.EntityDao.manager;
 
 public class CreateProduct {
     static Scanner scanner = new Scanner(System.in);
@@ -30,20 +33,19 @@ public class CreateProduct {
                 .category(category)
                 .build();
 
-        List<Option> options = category.getOptions();
 
-        List<Value> values = new ArrayList<>();
-
-        for (Option option : options) {
-            String valueName = getString("Введите значение");
-            Value value = Value.builder()
-                    .name(valueName)
-                    .product(product)
-                    .option(option)
-                    .build();
-            values.add(value);
-        }
-        product.setValues(values);
+//        List<Value> values = new ArrayList<>();
+//
+//        for (Option option : options) {
+//            String valueName = getString("Введите значение");
+//            Value value = Value.builder()
+//                    .name(valueName)
+//                    .product(product)
+//                    .option(option)
+//                    .build();
+//            values.add(value);
+//        }
+//        product.setValues(values);
 
         try {
             manager.getTransaction().begin();
@@ -72,4 +74,12 @@ public class CreateProduct {
         System.out.println(message);
         return Integer.parseInt(scanner.nextLine());
     }
+
+//    static List<Option> printAllOptions(int categoryId) {
+//        Query query = manager.createQuery("SELECT o FROM Option o, Category c WHERE o.category.id = c.id AND o.category.id=:categoryId", Option.class);
+//        query.setParameter("categoryId", categoryId);
+//        List<Option> options = query.getResultList();
+//        System.out.println(options);
+//        return options;
+//    }
 }

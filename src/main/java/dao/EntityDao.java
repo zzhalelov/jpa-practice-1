@@ -7,7 +7,7 @@ import java.util.List;
 
 public abstract class EntityDao<T> {
     protected static EntityManagerFactory factory = Persistence.createEntityManagerFactory("default");
-    protected static EntityManager manager = factory.createEntityManager();
+    public static EntityManager manager = factory.createEntityManager();
 
     private final Class<T> type;
 
