@@ -15,40 +15,7 @@ public abstract class EntityDao<T> {
         this.type = type;
     }
 
-    public T findById(int id) {
-        return manager.find(type, id);
-    }
-
-    public List<T> findAll() {
-        return manager.createQuery("SELECT t FROM " + type.getSimpleName() + " t", type).getResultList();
-    }
-
-    public void update(T entity) {
-        try {
-            manager.getTransaction().begin();
-
-            manager.merge(entity);
-
-            manager.getTransaction().commit();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            manager.getTransaction().rollback();
-        }
-    }
-
-    public void delete(T entity) {
-        try {
-            manager.getTransaction().begin();
-
-            manager.remove(entity);
-
-            manager.getTransaction().commit();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            manager.getTransaction().rollback();
-        }
-    }
-
+    //1. Создать товар
     public void create(T entity) {
         try {
             manager.getTransaction().begin();
@@ -61,4 +28,40 @@ public abstract class EntityDao<T> {
             manager.getTransaction().rollback();
         }
     }
+
+    //2. Вывести все товары
+    public List<T> findAll() {
+        return manager.createQuery("SELECT t FROM " + type.getSimpleName() + " t", type).getResultList();
+    }
+
+//    public T findById(int id) {
+//        return manager.find(type, id);
+//    }
+
+
+//    public void update(T entity) {
+//        try {
+//            manager.getTransaction().begin();
+//
+//            manager.merge(entity);
+//
+//            manager.getTransaction().commit();
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//            manager.getTransaction().rollback();
+//        }
+//    }
+//
+//    public void delete(T entity) {
+//        try {
+//            manager.getTransaction().begin();
+//
+//            manager.remove(entity);
+//
+//            manager.getTransaction().commit();
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//            manager.getTransaction().rollback();
+//        }
+//    }
 }
