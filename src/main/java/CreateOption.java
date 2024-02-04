@@ -12,7 +12,7 @@ public class CreateOption {
 
     public static void main(String[] args) {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("default");
-        EntityManager manager = factory.createEntityManager();
+        EntityManager manager = factory.createEntityManager(); //static
 
         int id = getInt("Введите id категории");
         Category category = manager.find(Category.class, id);

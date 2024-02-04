@@ -6,9 +6,6 @@ import model.Value;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 import static dao.EntityDao.manager;
@@ -19,47 +16,48 @@ public class CreateProduct {
     public static void main(String[] args) {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("default");
         EntityManager manager = factory.createEntityManager();
+        while (true) {
+            printAllCategories();
+            int categotyId = getInt("Выберите ID категории:");
+            Category category = manager.find(Category.class, categotyId);
 
-        printAllCategories();
-        int categotyId = getInt("Выберите ID категории:");
-        Category category = manager.find(Category.class, categotyId);
-
-        String name = getString("Введите название товара");
-        int price = getInt("Введите цену товара");
-
-        Product product = Product.builder()
-                .name(name)
-                .price(price)
-                .category(category)
-                .build();
+            String name = getString("Введите название товара");
+            int price = getInt("Введите цену товара");
 
 
-//        List<Value> values = new ArrayList<>();
-//
-//        for (Option option : options) {
-//            String valueName = getString("Введите значение");
-//            Value value = Value.builder()
-//                    .name(valueName)
-//                    .product(product)
-//                    .option(option)
-//                    .build();
-//            values.add(value);
-//        }
-//        product.setValues(values);
+            Product product = Product.builder()
+                    .name(name)
+                    .price(price)
+                    .category(category)
+                    .build();
 
-        try {
-            manager.getTransaction().begin();
-            manager.persist(product);
-            manager.getTransaction().commit();
-            System.out.println("Товар создан");
-        } catch (Exception e) {
-            manager.getTransaction().rollback();
-            System.out.println("Ошибка " + e.getMessage());
+
+            try {
+                manager.getTransaction().begin();
+                manager.persist(product);
+                for (Option option : category.getOptions()) {
+                    System.out.println(option.getName());
+                    String valueName = getString("Введите значение");
+                    Value value = Value.builder()
+                            .name(valueName)
+                            .product(product)
+                            .option(option)
+                            .build();
+                    manager.persist(value);
+                }
+                manager.getTransaction().commit();
+                System.out.println("Товар создан");
+            } catch (Exception e) {
+                manager.getTransaction().rollback();
+                System.out.println("Ошибка " + e.getMessage());
+            }
         }
+
     }
 
     static void printAllCategories() {
-        System.out.println("ВЫБЕРИТЕ КАТЕГОРИЮ:");
+        System.out.println("----------------------");
+        System.out.println("КАТЕГОРИИ:");
         System.out.println("1. Ноутбуки");
         System.out.println("2. Смартфоны");
         System.out.println("3. Наушники");
@@ -74,12 +72,4 @@ public class CreateProduct {
         System.out.println(message);
         return Integer.parseInt(scanner.nextLine());
     }
-
-//    static List<Option> printAllOptions(int categoryId) {
-//        Query query = manager.createQuery("SELECT o FROM Option o, Category c WHERE o.category.id = c.id AND o.category.id=:categoryId", Option.class);
-//        query.setParameter("categoryId", categoryId);
-//        List<Option> options = query.getResultList();
-//        System.out.println(options);
-//        return options;
-//    }
 }

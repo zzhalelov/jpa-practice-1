@@ -29,3 +29,12 @@ FROM categories,
      options
 WHERE options.category_id = categories.id
   AND options.category_id = 1;
+
+DELETE
+FROM products
+WHERE id BETWEEN 2 AND 6;
+
+DELETE
+FROM values
+WHERE id = 1;
+

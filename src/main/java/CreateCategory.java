@@ -1,18 +1,20 @@
 import model.Category;
+import model.Option;
 
 import javax.persistence.*;
 import java.util.Scanner;
 
 public class CreateCategory {
     static Scanner scanner = new Scanner(System.in);
+    static Option option = new Option();
 
     public static void main(String[] args) {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("default");
         EntityManager manager = factory.createEntityManager();
 
-        String name = getString("Введите название:");
+        String name = getString("Введите название категории:");
 
-        if (name == null || name.isEmpty()) {
+        if (name.isBlank()) {
             System.out.println("Название не может быть пустым значенем!");
         } else {
             Category category = Category.builder()
@@ -21,6 +23,15 @@ public class CreateCategory {
             try {
                 manager.getTransaction().begin();
                 manager.persist(category);
+
+//CreateOption createOption =
+//        String optionName = getString("Введите название характеристики");
+//                Option opt = Option.builder()
+//                        .name(optionName)
+//                        .category(category)
+//                        .build();
+//                manager.persist(opt);
+                }
                 manager.getTransaction().commit();
                 System.out.println("Категория создана");
             } catch (Exception e) {
