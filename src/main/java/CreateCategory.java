@@ -24,25 +24,25 @@ public class CreateCategory {
                 manager.getTransaction().begin();
                 manager.persist(category);
 
-//CreateOption createOption =
-//        String optionName = getString("Введите название характеристики");
-//                Option opt = Option.builder()
-//                        .name(optionName)
-//                        .category(category)
-//                        .build();
-//                manager.persist(opt);
-                }
-                manager.getTransaction().commit();
-                System.out.println("Категория создана");
-            } catch (Exception e) {
-                manager.getTransaction().rollback();
-                System.out.println("Ошибка при создании категории");
+                CreateOption createOption =
+                        String optionName = getString("Введите название характеристики");
+                Option opt = Option.builder()
+                        .name(optionName)
+                        .category(category)
+                        .build();
+                manager.persist(opt);
             }
+            manager.getTransaction().commit();
+            System.out.println("Категория создана");
+        } catch(Exception e){
+            manager.getTransaction().rollback();
+            System.out.println("Ошибка при создании категории");
         }
     }
+}
 
-    static String getString(String message) {
-        System.out.println(message);
-        return scanner.nextLine();
-    }
+static String getString(String message) {
+    System.out.println(message);
+    return scanner.nextLine();
+}
 }
