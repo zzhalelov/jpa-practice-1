@@ -21,6 +21,17 @@ public class Product {
     private String name;
     private int price;
 
+    public Product() {
+    }
+
+    public Product(int id, String name, int price, Category category, List<Value> values) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.category = category;
+        this.values = values;
+    }
+
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
