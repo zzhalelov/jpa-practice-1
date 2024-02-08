@@ -1,0 +1,74 @@
+import model.Product;
+import model.Value;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import java.util.List;
+import java.util.Scanner;
+
+public class UpdateProduct {
+    static Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("default");
+        EntityManager manager = factory.createEntityManager();
+
+        int productId = getInt("Введите ID товара, который нужно обновить:");
+        Product product = manager.find(Product.class, productId);
+
+        if (product == null) {
+            System.out.println("Товар не найден");
+            return;
+        }
+
+        String name = getString("Введите обновленное название товара \n Если обновлять название не нужно - нажмите Enter");
+        if (!name.isEmpty()) {
+            product.setName(name);
+        }
+
+        String priceInput = getString("Введите обновленную цену товара \n Если обновлять цену не нужно - нажмите Enter");
+        if (!priceInput.isEmpty()) {
+            try {
+                int price = Integer.parseInt(priceInput);
+                product.setPrice(price);
+            } catch (NumberFormatException e) {
+                System.out.println("Ошибка. Число не целое");
+                return;
+            }
+        }
+        updateValues(product, manager);
+    }
+
+    static void updateValues(Product product, EntityManager manager) {
+        List<Value> values = product.getValues();
+        if (values != null) {
+            System.out.println("Обновление значений характеристик");
+
+            for (Value value : values) {
+                String newValue = getString(value.getOption().getName() + " " + value.getOption().getName());
+                value.setName(newValue);
+                value.setProduct(product);
+                value.setOption(value.getOption());
+                try {
+                    manager.getTransaction().begin();
+                    manager.merge(value);
+                    manager.getTransaction().commit();
+                } catch (Exception e) {
+                    manager.getTransaction().rollback();
+                    System.out.println("Ошибка обновления");
+                }
+            }
+        }
+    }
+
+    static int getInt(String message) {
+        System.out.println(message);
+        return Integer.parseInt(scanner.nextLine());
+    }
+
+    static String getString(String message) {
+        System.out.println(message);
+        return scanner.nextLine();
+    }
+}
