@@ -1,8 +1,11 @@
+--создание таблицы Категории
 CREATE TABLE categories
 (
     id   SERIAL PRIMARY KEY,
     name VARCHAR
 );
+
+--создание таблицы Продукты
 CREATE TABLE products
 (
     id          SERIAL PRIMARY KEY,
@@ -10,12 +13,16 @@ CREATE TABLE products
     price       INT,
     category_id INT REFERENCES categories (id)
 );
+
+--создание таблицы Характеристики
 CREATE TABLE options
 (
     id          SERIAL PRIMARY KEY,
     name        VARCHAR,
     category_id INT REFERENCES categories (id)
 );
+
+--создание таблицы Значения
 CREATE TABLE values
 (
     id         SERIAL PRIMARY KEY,
@@ -23,18 +30,3 @@ CREATE TABLE values
     product_id INT REFERENCES products (id),
     option_id  INT REFERENCES options (id)
 );
-
-SELECT *
-FROM categories,
-     options
-WHERE options.category_id = categories.id
-  AND options.category_id = 1;
-
-DELETE
-FROM products
-WHERE id BETWEEN 2 AND 6;
-
-DELETE
-FROM values
-WHERE id = 1;
-
