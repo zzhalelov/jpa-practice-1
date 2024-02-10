@@ -22,43 +22,45 @@ public class UpdateProduct {
             return;
         }
 
-        String name = getString("Введите обновленное название товара \n Если обновлять название не нужно - нажмите Enter");
-        if (!name.isEmpty()) {
-            product.setName(name);
-        }
+        try {
+            manager.getTransaction().begin();
 
-        String priceInput = getString("Введите обновленную цену товара \n Если обновлять цену не нужно - нажмите Enter");
-        if (!priceInput.isEmpty()) {
+            System.out.println(product.getName());
+            String name = getString("Введите обновленное название товара \n Если обновлять название не нужно - нажмите Enter");
+            if (!name.isBlank()) {
+                product.setName(name);
+            }
+
             try {
-                int price = Integer.parseInt(priceInput);
+                int price = getInt("Введите обновленную цену товара \n Если обновлять цену не нужно - нажмите Enter");
                 product.setPrice(price);
             } catch (NumberFormatException e) {
                 System.out.println("Ошибка. Число не целое");
                 return;
             }
+            updateValues(product, manager);
+
+            manager.getTransaction().commit();
+        } catch (Exception e) {
+            manager.getTransaction().rollback();
+            System.out.println(e.getMessage());
         }
-        updateValues(product, manager);
     }
 
     static void updateValues(Product product, EntityManager manager) {
         List<Value> values = product.getValues();
-        if (values != null) {
-            System.out.println("Обновление значений характеристик");
+        if (values.isEmpty()) {
+            return;
+        }
 
-            for (Value value : values) {
-                String newValue = getString(value.getOption().getName() + " " + value.getOption().getName());
-                value.setName(newValue);
-                value.setProduct(product);
-                value.setOption(value.getOption());
-                try {
-                    manager.getTransaction().begin();
-                    manager.merge(value);
-                    manager.getTransaction().commit();
-                } catch (Exception e) {
-                    manager.getTransaction().rollback();
-                    System.out.println("Ошибка обновления");
-                }
+        System.out.println("Обновление значений характеристик");
+        for (Value value : values) {
+            String newValue = getString(value.getOption().getName() + " " + value.getOption().getName());
+            if (newValue.isBlank()) {
+                continue;
             }
+            value.setName(newValue);
+            manager.merge(value);
         }
     }
 
