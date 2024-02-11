@@ -37,4 +37,10 @@ public class CreateCategory {
         System.out.println(message);
         return scanner.nextLine();
     }
+
+    static boolean categoryExists(EntityManager manager, String name, Category category) {
+        TypedQuery<Long> query = manager.createQuery("SELECT count(c) FROM Category  c WHERE c.name = :name", Long.class);
+        query.setParameter("name", name);
+        return query.getSingleResult() > 0;
+    }
 }
