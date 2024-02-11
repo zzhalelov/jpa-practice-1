@@ -1,24 +1,20 @@
 import model.Category;
-import model.Option;
 
 import javax.persistence.*;
 import java.util.Scanner;
 
 public class CreateCategory {
     static Scanner scanner = new Scanner(System.in);
-    static Option option = new Option();
 
     public static void main(String[] args) {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("default");
         EntityManager manager = factory.createEntityManager();
 
         String name = getString("Введите название категории:");
-        Category cat = manager.find(Category.class, name);
 
         if (name.isBlank()) {
             System.out.println("Название не может быть пустым значенем!");
-
-        } else if (categoryExists(manager, name, cat)) {
+        } else if (categoryExists(manager, name)) {
             System.out.println("Категория с таким именем существует");
         } else {
             Category category = Category.builder()
@@ -27,7 +23,6 @@ public class CreateCategory {
             try {
                 manager.getTransaction().begin();
                 manager.persist(category);
-
                 manager.getTransaction().commit();
                 System.out.println("Категория создана");
             } catch (Exception e) {
@@ -35,6 +30,7 @@ public class CreateCategory {
                 System.out.println("Ошибка при создании категории");
             }
         }
+        factory.close();
     }
 
     static String getString(String message) {
@@ -42,9 +38,9 @@ public class CreateCategory {
         return scanner.nextLine();
     }
 
-    static boolean categoryExists(EntityManager manager, String name, Category category) {
-        TypedQuery<Long> query = manager.createQuery("SELECT count(c) FROM Category  c WHERE c.name = :name", Long.class);
-        query.setParameter("name", category);
+    static boolean categoryExists(EntityManager manager, String name) {
+        TypedQuery<Long> query = manager.createQuery("SELECT count(c) FROM Category  c WHERE c.name = :categoryName", Long.class);
+        query.setParameter("categoryName", name);
         return query.getSingleResult() > 0;
     }
 }
