@@ -12,11 +12,12 @@ public class CreateOption {
 
     public static void main(String[] args) {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("default");
-        EntityManager manager = factory.createEntityManager(); //static
+        EntityManager manager = factory.createEntityManager();
 
         int id = getInt("Введите id категории");
         Category category = manager.find(Category.class, id);
 
+        //если категория существует, вывести сообщение
         if (category == null) {
             System.out.println("Категория с указанным id не найдена");
             return;
