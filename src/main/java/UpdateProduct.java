@@ -47,6 +47,7 @@ public class UpdateProduct {
         }
     }
 
+    //статичный метод для обновления значений характеристик
     static void updateValues(Product product, EntityManager manager) {
         List<Value> values = product.getValues();
         if (values.isEmpty()) {
