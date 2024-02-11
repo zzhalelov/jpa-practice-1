@@ -13,9 +13,13 @@ public class CreateCategory {
         EntityManager manager = factory.createEntityManager();
 
         String name = getString("Введите название категории:");
+        Category cat = manager.find(Category.class, name);
 
         if (name.isBlank()) {
             System.out.println("Название не может быть пустым значенем!");
+
+        } else if (categoryExists(manager, name, cat)) {
+            System.out.println("Категория с таким именем существует");
         } else {
             Category category = Category.builder()
                     .name(name)
@@ -40,7 +44,7 @@ public class CreateCategory {
 
     static boolean categoryExists(EntityManager manager, String name, Category category) {
         TypedQuery<Long> query = manager.createQuery("SELECT count(c) FROM Category  c WHERE c.name = :name", Long.class);
-        query.setParameter("name", name);
+        query.setParameter("name", category);
         return query.getSingleResult() > 0;
     }
 }
