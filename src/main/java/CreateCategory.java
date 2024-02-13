@@ -38,6 +38,7 @@ public class CreateCategory {
         return scanner.nextLine();
     }
 
+    //Метод, проверяющий наличие категории
     static boolean categoryExists(EntityManager manager, String name) {
         TypedQuery<Long> query = manager.createQuery("SELECT count(c) FROM Category  c WHERE c.name = :categoryName", Long.class);
         query.setParameter("categoryName", name);
