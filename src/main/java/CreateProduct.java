@@ -8,8 +8,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.Scanner;
 
-import static dao.EntityDao.manager;
-
 public class CreateProduct {
     static Scanner scanner = new Scanner(System.in);
 
