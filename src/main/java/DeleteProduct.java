@@ -14,56 +14,33 @@ public class DeleteProduct {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("default");
         EntityManager manager = factory.createEntityManager();
 
-        //запросить id продукта
         int productId = getInt("Введите ID товара, который надо удалить:");
 
-        //удалить все значения характерстик, которые были привязаны к удаляемому продукту
-        deleteValuesByProductId(manager, productId);
-
-        //удаление продукта
-        deleteProduct(manager, productId);
-
-        factory.close();
-
-    }
-
-    static void deleteValuesByProductId(EntityManager manager, int productId) {
         Product product = manager.find(Product.class, productId);
+        if (product == null) {
+            return;
+        }
 
-        if (product != null) {
-            List<Value> values = product.getValues();
+        try {
+            manager.getTransaction().begin();
 
-            try {
-                manager.getTransaction().begin();
-                for (Value value : values) {
-                    manager.remove(value);
-                }
-                manager.getTransaction().commit();
-                System.out.println("Все значения характерстик товара удалены");
-            } catch (Exception e) {
-                manager.getTransaction().rollback();
-                System.out.println("Ошибка");
-            }
-        } else {
-            System.out.println("Товар с указанным ID не найден");
+            //удалить все значения характерстик, которые были привязаны к удаляемому продукту
+            deleteValuesByProductId(manager, product);
+
+            //удалить товар
+            manager.remove(product);
+
+            manager.getTransaction().commit();
+        } catch (Exception e) {
+            manager.getTransaction().rollback();
+            System.out.println("Ошибка");
         }
     }
 
-    static void deleteProduct(EntityManager manager, int productId) {
-        Product product = manager.find(Product.class, productId);
-
-        if (product != null) {
-            try {
-                manager.getTransaction().begin();
-                manager.remove(product);
-                manager.getTransaction().commit();
-                System.out.println("Товар удален");
-            } catch (Exception e) {
-                manager.getTransaction().rollback();
-                System.out.println("Ошибка");
-            }
-        } else {
-            System.out.println("Товар с указанным ID не найден");
+    static void deleteValuesByProductId(EntityManager manager, Product product) {
+        List<Value> values = product.getValues();
+        for (Value value : values) {
+            manager.remove(value);
         }
     }
 

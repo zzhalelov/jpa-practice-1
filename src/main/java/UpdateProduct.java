@@ -35,8 +35,8 @@ public class UpdateProduct {
                 int price = getInt("Введите обновленную цену товара \n Если обновлять цену не нужно - нажмите Enter");
                 product.setPrice(price);
             } catch (NumberFormatException e) {
-                System.out.println("Ошибка. Число не целое");
-                return;
+                //System.out.println("Ошибка. Число не целое");
+                //return;
             }
             updateValues(product, manager);
 
@@ -55,7 +55,7 @@ public class UpdateProduct {
 
         System.out.println("Обновление значений характеристик");
         for (Value value : values) {
-            String newValue = getString(value.getOption().getName() + " " + value.getOption().getName());
+            String newValue = getString(value.getOption().getName() + " " + value.getName());
             if (newValue.isBlank()) {
                 continue;
             }
