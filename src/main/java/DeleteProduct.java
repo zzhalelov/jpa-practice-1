@@ -29,6 +29,7 @@ public class DeleteProduct {
 
             //удалить товар
             manager.remove(product);
+            System.out.println("Товар удален");
 
             manager.getTransaction().commit();
         } catch (Exception e) {
