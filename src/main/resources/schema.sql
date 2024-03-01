@@ -31,12 +31,14 @@ CREATE TABLE values
     option_id  INT REFERENCES options (id)
 );
 
-SELECT options.name, values.name
-FROM options,
-     categories,
-     values
-WHERE category_id = categories.id
-  AND option_id = options.id
-  AND categories.id = 1;
-
---select v.* from values v where v.option = ? v.product = ?
+--
+CREATE TABLE users
+(
+    id            BIGSERIAL PRIMARY KEY,
+    login         VARCHAR NOT NULL UNIQUE,
+    password      VARCHAR NOT NULL,
+    name          VARCHAR,
+    lastname      VARCHAR,
+    role          int,
+    registered_at timestamp
+);
