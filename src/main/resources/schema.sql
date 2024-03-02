@@ -52,3 +52,14 @@ CREATE TABLE orders
     delivery_address VARCHAR                      NOT NULL,
     date_of_order    TIMESTAMP
 );
+
+--создание таблицы отзывов
+CREATE TABLE reviews
+(
+    id                 BIGSERIAL PRIMARY KEY,
+    user_id            BIGINT REFERENCES users (id)    NOT NULL,
+    product_id         BIGINT REFERENCES products (id) NOT NULL,
+    publication_status INT                             NOT NULL,
+    review_text        TEXT,
+    review_data        TIMESTAMP
+);
