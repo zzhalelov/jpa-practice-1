@@ -31,7 +31,7 @@ CREATE TABLE values
     option_id  INT REFERENCES options (id)
 );
 
---
+--Создание таблицы пользователей
 CREATE TABLE users
 (
     id            BIGSERIAL PRIMARY KEY,
@@ -41,4 +41,14 @@ CREATE TABLE users
     lastname      VARCHAR,
     role          int,
     registered_at timestamp
+);
+
+--Создание таблицы заказов
+CREATE TABLE orders
+(
+    id               BIGSERIAL PRIMARY KEY,
+    user_id          BIGINT REFERENCES users (id) NOT NULL,
+    status           INT,
+    delivery_address VARCHAR                      NOT NULL,
+    date_of_order    TIMESTAMP
 );
