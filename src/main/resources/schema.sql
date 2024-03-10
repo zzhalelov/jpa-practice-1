@@ -63,3 +63,11 @@ CREATE TABLE reviews
     review_text        TEXT,
     review_data        TIMESTAMP
 );
+
+--
+CREATE TABLE orders_products
+(
+    id         BIGSERIAL PRIMARY KEY,
+    order_id   BIGINT REFERENCES orders (id),
+    product_id BIGINT REFERENCES products (id)
+)
