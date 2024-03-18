@@ -17,14 +17,14 @@ import java.util.List;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     private String name;
     private int price;
 
     public Product() {
     }
 
-    public Product(int id, String name, int price, Category category, List<Value> values) {
+    public Product(Long id, String name, int price, Category category, List<Value> values) {
         this.id = id;
         this.name = name;
         this.price = price;
