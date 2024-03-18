@@ -44,11 +44,11 @@ public class CreateReview {
                 manager.getTransaction().commit();
                 System.out.println("Отзыв добавлен");
             } catch (Exception e) {
-                System.out.println("Ошибка! Отзыв не добавлен");
+                System.out.println("Ошибка! Отзыв не добавлен " + e.getMessage());
                 manager.getTransaction().rollback();
             }
         } catch (Exception e) {
-            System.out.println("Ошибка");
+            System.out.println("Ошибка " + e.getMessage());
         }
     }
 }
