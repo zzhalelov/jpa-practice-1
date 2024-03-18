@@ -25,8 +25,13 @@ public class Review {
 
     @Column(name = "publication_status")
     private boolean published;
+
+    @Column(name = "review_rating")
     private int rating;
+
+    @Column(name = "review_text")
     private String text;
+
     @Column(name = "review_data")
     private LocalDateTime publicationDate;
 }
