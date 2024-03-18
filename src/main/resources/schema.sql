@@ -60,6 +60,7 @@ CREATE TABLE reviews
     user_id            BIGINT REFERENCES users (id)    NOT NULL,
     product_id         BIGINT REFERENCES products (id) NOT NULL,
     publication_status INT                             NOT NULL,
+    review_rating      SMALLINT                        NOT NULL,
     review_text        TEXT,
     review_data        TIMESTAMP
 );
