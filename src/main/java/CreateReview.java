@@ -35,7 +35,6 @@ public class CreateReview {
                 Review review = new Review();
                 review.setUser(user);
                 review.setProduct(product);
-                review.setPublished(true);
                 review.setRating(rating);
                 review.setText(text);
                 review.setPublicationDate(LocalDateTime.now());

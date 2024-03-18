@@ -56,13 +56,12 @@ CREATE TABLE orders
 --создание таблицы отзывов
 CREATE TABLE reviews
 (
-    id                 BIGSERIAL PRIMARY KEY,
-    user_id            BIGINT REFERENCES users (id)    NOT NULL,
-    product_id         BIGINT REFERENCES products (id) NOT NULL,
-    publication_status INT                             NOT NULL,
-    review_rating      SMALLINT                        NOT NULL,
-    review_text        TEXT,
-    review_data        TIMESTAMP
+    id            BIGSERIAL PRIMARY KEY,
+    user_id       BIGINT REFERENCES users (id)    NOT NULL,
+    product_id    BIGINT REFERENCES products (id) NOT NULL,
+    review_rating SMALLINT                        NOT NULL,
+    review_text   TEXT,
+    review_data   TIMESTAMP
 );
 
 --
